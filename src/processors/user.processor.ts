@@ -3,7 +3,6 @@ import { getInstitution } from "../services/institution.service";
 import { createUserService, deleteUserService, getUserByExternalIdService } from "../services/user.service";
 import { UserResult, eventUser } from "./interfaces/user.interface";
 import { deleteCourse } from "./interfaces/course.interface";
-import { deleteCourse } from "./course.processor";
 
 export async function createUser (payload:CreateUser): Promise<void> {
     var institution = await getInstitution(payload.institution)

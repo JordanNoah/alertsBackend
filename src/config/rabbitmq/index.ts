@@ -1,6 +1,6 @@
 import rabbitmq from 'amqplib'
 import { RabbitEventTypes } from './interfaces';
-import { createUser, updateUser } from '../../processors/user.processor';
+import { createUser, deleteUser, updateUser } from '../../processors/user.processor';
 import { constants } from '../constants';
 import { createCourse } from '../../processors/course.processor';
 import { createEnrollment } from '../../processors/enrollment.processor';
@@ -47,6 +47,7 @@ export async function consume() {
             [RabbitEventTypes.user_updated, async (payload:any) => await updateUser(payload)],
             [RabbitEventTypes.user_deleted, async (payload:any) => await deleteUser(payload)],
             [RabbitEventTypes.course_created, async (payload: any) => await createCourse(payload)],
+            [],
             [RabbitEventTypes.enrollment_created, async (payload:any) => await createEnrollment(payload)]
         ])
 
