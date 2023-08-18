@@ -2,8 +2,8 @@ import rabbitmq from 'amqplib'
 import { RabbitEventTypes } from './interfaces';
 import { createUser, deleteUser, updateUser } from '../../processors/user.processor';
 import { constants } from '../constants';
-import { createCourse } from '../../processors/course.processor';
-import { createEnrollment } from '../../processors/enrollment.processor';
+import { createCourse, deleteCourse, updateCourse } from '../../processors/course.processor';
+import { createEnrollment, deleteEnrollment, updateEnrollment } from '../../processors/enrollment.processor';
 
 type SetupRabbitMQ = {
     return: Promise<{
@@ -47,8 +47,11 @@ export async function consume() {
             [RabbitEventTypes.user_updated, async (payload:any) => await updateUser(payload)],
             [RabbitEventTypes.user_deleted, async (payload:any) => await deleteUser(payload)],
             [RabbitEventTypes.course_created, async (payload: any) => await createCourse(payload)],
-            [],
-            [RabbitEventTypes.enrollment_created, async (payload:any) => await createEnrollment(payload)]
+            [RabbitEventTypes.course_updated, async (payload: any) => await updateCourse(payload)],
+            [RabbitEventTypes.course_deleted, async (payload: any) => await deleteCourse(payload)],
+            [RabbitEventTypes.enrollment_created, async (payload:any) => await createEnrollment(payload)],
+            [RabbitEventTypes.enrollment_updated, async (payload:any) => await updateEnrollment(payload)],
+            [RabbitEventTypes.enrollment_deleted, async (payload:any) => await deleteEnrollment(payload)]
         ])
 
         var recivedConsume = await channel.consume(queue, async (msg:any) => {

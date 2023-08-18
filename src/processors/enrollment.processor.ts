@@ -2,7 +2,7 @@ import { existCourseService } from "../services/course.service";
 import { createEnrollmentService } from "../services/enrollment.service";
 import { getInstitution } from "../services/institution.service";
 import { getUserByExternalIdService } from "../services/user.service";
-import { enrollmentResult, eventEnrollment } from "./interfaces/enrollment.interface";
+import { enrollmentResult, eventDeleteEnrollment, eventEnrollment } from "./interfaces/enrollment.interface";
 
 export async function createEnrollment(payload:eventEnrollment): Promise<void> {
     
@@ -39,4 +39,17 @@ export async function createEnrollment(payload:eventEnrollment): Promise<void> {
     var [enrollment,created] = await createEnrollmentService(
         enrollmentDestiny,institution.id,course.id
     )
+}
+
+export async function updateEnrollment(payload:eventEnrollment){
+
+    var institution = await getInstitution(payload.institution)
+
+    if (!institution) {
+        throw Error('insititution not found')
+    }
+}
+
+export async function deleteEnrollment(payload:eventDeleteEnrollment){
+
 }

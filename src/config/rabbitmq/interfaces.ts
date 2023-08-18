@@ -8,5 +8,7 @@ export enum RabbitEventTypes {
     course_deleted = 'teaching-action.moodle.alerts.bunsh.course_deleted',
     course_updated = 'teaching-action.moodle.alerts.bunsh.course_updated',
     //enrollment
-    enrollment_created = 'teaching-action.moodle.alerts.bunsh.user_enrolled'
+    enrollment_created = 'teaching-action.moodle.alerts.bunsh.user_enrolled',
+    enrollment_updated = 'teaching-action.moodle.alerts.bunsh.user_update_enrolled',
+    enrollment_deleted = 'teaching-action.moodle.alerts.bunsh.user_delete_enrolled'
 }
